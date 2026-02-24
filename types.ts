@@ -1,4 +1,3 @@
-
 export interface UserInput {
   edisc: string;
   major: string;
@@ -11,18 +10,21 @@ export interface UserInput {
   ageGroup: string;
 }
 
-export interface PortfolioHelper {
+export interface PortfolioTip {
   experience: string;
-  learnings: string;
-  verbalization: string;
+  learned: string;
+  wording: string;
 }
 
 export interface Experience {
-  experienceType: string;
-  activityExample: string;
-  expectedCompetencies: string;
-  applicationLink: string;
-  portfolioHelper: PortfolioHelper;
+  type: string;
+  activityName: string;
+  host: string;
+  period: string;
+  field: string;
+  link: string;
+  competency: string;
+  portfolioTip?: PortfolioTip;
 }
 
 export interface CurationResult {

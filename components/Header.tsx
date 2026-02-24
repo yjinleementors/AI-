@@ -9,7 +9,7 @@ const Header: React.FC = () => {
       </h1>
       <div className="mt-4">
         <span className="inline-block bg-sky-500/20 text-sky-300 text-sm font-semibold px-4 py-1.5 rounded-full">
-          대학생·대학원생용
+          대학생/대학원생 용
         </span>
       </div>
       <p className="mt-3 text-lg text-slate-300 max-w-2xl mx-auto">

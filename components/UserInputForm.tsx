@@ -19,7 +19,7 @@ const UserInputForm: React.FC<UserInputFormProps> = ({ onSubmit, isLoading }) =>
     activities: '',
     languages: '',
     purpose: '',
-    ageGroup: '1학년',
+    ageGroup: '대학교 1학년',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -46,7 +46,7 @@ const UserInputForm: React.FC<UserInputFormProps> = ({ onSubmit, isLoading }) =>
             </select>
           </div>
           <div>
-            <label htmlFor="ageGroup" className={labelStyle}>학년</label>
+            <label htmlFor="ageGroup" className={labelStyle}>소속 / 학년</label>
             <select id="ageGroup" name="ageGroup" value={formData.ageGroup} onChange={handleChange} className={inputStyle}>
               {AGE_GROUPS.map(group => <option key={group} value={group}>{group}</option>)}
             </select>
