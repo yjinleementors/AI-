@@ -24,6 +24,7 @@ export interface Experience {
   field: string;
   link: string;
   competency: string;
+  recommendationReason: string;
   portfolioTip?: PortfolioTip;
 }
 

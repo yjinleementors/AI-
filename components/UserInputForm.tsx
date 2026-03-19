@@ -32,11 +32,11 @@ const UserInputForm: React.FC<UserInputFormProps> = ({ onSubmit, isLoading }) =>
     onSubmit(formData);
   };
   
-  const inputStyle = "w-full bg-slate-800/50 border border-slate-700 rounded-lg p-3 text-slate-200 placeholder-slate-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition duration-200";
-  const labelStyle = "block text-sm font-medium text-slate-300 mb-2";
+  const inputStyle = "w-full bg-white border border-emerald-100 rounded-lg p-3 text-slate-700 placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition duration-200";
+  const labelStyle = "block text-sm font-medium text-slate-700 mb-2";
 
   return (
-    <div className="max-w-4xl mx-auto bg-slate-800/30 backdrop-blur-sm rounded-2xl shadow-lg p-6 md:p-8 border border-slate-700">
+    <div className="max-w-4xl mx-auto bg-white/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 md:p-8 border border-emerald-100">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -91,7 +91,7 @@ const UserInputForm: React.FC<UserInputFormProps> = ({ onSubmit, isLoading }) =>
         </div>
 
         <div className="pt-4">
-          <button type="submit" disabled={isLoading} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105">
+          <button type="submit" disabled={isLoading} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold py-3 px-4 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105">
             {isLoading ? (
               <>
                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
