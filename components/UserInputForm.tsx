@@ -40,7 +40,7 @@ const UserInputForm: React.FC<UserInputFormProps> = ({ onSubmit, isLoading }) =>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="edisc" className={labelStyle}>EDISC 성향</label>
+            <label htmlFor="edisc" className={labelStyle}>아이프잡 유형(eDISC성향)</label>
             <select id="edisc" name="edisc" value={formData.edisc} onChange={handleChange} className={inputStyle}>
               {EDISC_TYPES.map(type => <option key={type} value={type}>{type}</option>)}
             </select>

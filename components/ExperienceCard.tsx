@@ -70,7 +70,7 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) =>
         
         <div className="mb-4 p-3 bg-emerald-50 border-l-4 border-emerald-400 rounded-r-lg">
           <p className="text-sm text-slate-700 leading-relaxed italic">
-            <span className="font-bold text-emerald-600">📍 성향 기반 추천 사유:</span> {experience.recommendationReason}
+            <span className="font-bold text-emerald-600">📍 아이프잡 유형(eDISC성향) 기반 추천 사유:</span> {experience.recommendationReason}
           </p>
         </div>
 

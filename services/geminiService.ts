@@ -25,7 +25,7 @@ const experienceItemSchema = {
     field: { type: Type.STRING, description: "관련 활동 분야" },
     link: { type: Type.STRING, description: "관련 정보 링크(URL). 구글 검색 결과 링크를 권장합니다." },
     competency: { type: Type.STRING, description: "이 경험을 통해 기대되는 역량" },
-    recommendationReason: { type: Type.STRING, description: "사용자의 eDISC 성향을 반영한 추천 사유 (한 문장으로 간결하게)" },
+    recommendationReason: { type: Type.STRING, description: "사용자의 아이프잡 유형(eDISC성향)을 반영한 추천 사유 (한 문장으로 간결하게)" },
     portfolioTip: portfolioTipSchema,
   },
   required: ["type", "activityName", "host", "period", "field", "link", "competency", "recommendationReason", "portfolioTip"]
@@ -36,7 +36,7 @@ const responseSchema = {
   properties: {
     customizedExperience: {
       type: Type.ARRAY,
-      description: "사용자의 성향과 강점에 맞는 맞춤형 경험 추천 리스트입니다. (정확히 2개 추천)",
+      description: "사용자의 아이프잡 유형(eDISC성향)과 강점에 맞는 맞춤형 경험 추천 리스트입니다. (정확히 2개 추천)",
       items: experienceItemSchema,
     },
     complementaryExperience: {
@@ -56,7 +56,7 @@ const responseSchema = {
 
 const createPrompt = (userInput: UserInput): string => {
   return `
-    당신은 EDISC 성향 기반의 전문 진로 경험 큐레이터입니다.
+    당신은 아이프잡 유형(eDISC성향) 기반의 전문 진로 경험 큐레이터입니다.
     사용자 정보를 바탕으로 맞춤형 진로 경험을 추천해주세요. 각 카테고리별로 정확히 2개씩 추천합니다.
 
     **[중요: 외부 링크 생성 규칙]**
@@ -67,9 +67,9 @@ const createPrompt = (userInput: UserInput): string => {
     3. 만약 매우 유명하고 변하지 않는 공식 홈페이지(예: 링커리어, 자소설닷컴 메인 등)를 알고 있다면 해당 링크를 사용해도 좋으나, 특정 공고의 깨지기 쉬운 상세 URL보다는 구글 검색 링크가 더 안전합니다.
 
     **[큐레이션 구조 및 추천 사유(recommendationReason) 작성 원칙]**
-    1. 맞춤형 경험: 사용자의 성향과 강점에 최적화된 활동. (성향의 강점이 이 경험에서 어떻게 시너지를 낼 수 있는지 설명)
-    2. 보완형 경험: 성향의 약점을 보완할 수 있는 도전적인 활동. (사용자의 성향상 부족할 수 있는 부분(예: I형의 디테일 부족, S형의 결단력 부족 등)을 이 경험이 어떻게 채워주는지 설명)
-    3. 확장형 경험: 전공 외 시야를 넓혀주는 트렌디한 활동. (사용자의 기존 성향을 넘어 새로운 가능성을 발견할 수 있는 이유를 설명)
+    1. 맞춤형 경험: 사용자의 아이프잡 유형(eDISC성향)과 강점에 최적화된 활동. (아이프잡 유형(eDISC성향)의 강점이 이 경험에서 어떻게 시너지를 낼 수 있는지 설명)
+    2. 보완형 경험: 아이프잡 유형(eDISC성향)의 약점을 보완할 수 있는 도전적인 활동. (사용자의 아이프잡 유형(eDISC성향)상 부족할 수 있는 부분(예: I형의 디테일 부족, S형의 결단력 부족 등)을 이 경험이 어떻게 채워주는지 설명)
+    3. 확장형 경험: 전공 외 시야를 넓혀주는 트렌디한 활동. (사용자의 기존 아이프잡 유형(eDISC성향)을 넘어 새로운 가능성을 발견할 수 있는 이유를 설명)
 
     **[추천 사유 작성 톤앤매너]**
     - "추천 포인트: [내용]" 형식으로 작성하지 마세요. (UI에서 처리함) 사유 내용만 작성하세요.
@@ -80,7 +80,7 @@ const createPrompt = (userInput: UserInput): string => {
 
     **[사용자 정보]**
     - 소속/학년: ${userInput.ageGroup}
-    - EDISC 성향: ${userInput.edisc}
+    - 아이프잡 유형(eDISC성향): ${userInput.edisc}
     - 전공/부전공: ${userInput.major || '정보 없음'}
     - 관심분야: ${userInput.interestField || '정보 없음'}
     - 취미: ${userInput.hobbies || '정보 없음'}

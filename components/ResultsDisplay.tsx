@@ -52,7 +52,7 @@ const ResultsDisplay: React.FC<{
           <div className="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-emerald-100 shadow-xl">
               <ExperienceSection 
                 title="🌿 1. 맞춤형 경험" 
-                description="나의 성향과 배경에 딱 맞는 경험 추천!"
+                description="나의 아이프잡 유형(eDISC성향)과 배경에 딱 맞는 경험 추천!"
                 experiences={recommendations.customizedExperience} 
               />
               <ExperienceSection 
