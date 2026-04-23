@@ -12,8 +12,9 @@ const Header: React.FC = () => {
           대학생/대학원생 용
         </span>
       </div>
-      <p className="mt-3 text-lg text-slate-600 max-w-2xl mx-auto">
-        어떤 경험을 쌓아야할지 모르겠다면? 내 상황에 꼭 맞는 경험 추천받기!
+      <p className="mt-3 text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        어떤 경험을 쌓아야할지 모르겠다면?<br />
+        아이프잡 유형에 딱 맞는 진로경험 추천받기!
       </p>
     </header>
   );
