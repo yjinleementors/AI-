@@ -5,7 +5,7 @@ const Header: React.FC = () => {
   return (
     <header className="py-8 md:py-12 text-center">
       <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-600 to-teal-500 text-transparent bg-clip-text">
-        AI 진로 경험 큐레이터
+        AI 진로경험 큐레이터
       </h1>
       <div className="mt-4">
         <span className="inline-block bg-emerald-100 text-emerald-700 text-sm font-semibold px-4 py-1.5 rounded-full">

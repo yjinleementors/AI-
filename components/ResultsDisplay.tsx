@@ -40,9 +40,9 @@ const ResultsDisplay: React.FC<{
     if (!recommendations) {
       return (
           <div className="mt-12 text-center text-slate-500 p-8 bg-white/50 rounded-2xl border border-emerald-100">
-              <h3 className="text-lg font-semibold text-emerald-800">AI 진로 경험 큐레이션</h3>
+              <h3 className="text-lg font-semibold text-emerald-800">AI 진로경험 큐레이션</h3>
               <p className="mt-2">상단의 양식을 채우고 '나만의 경험 큐레이션 받기' 버튼을 눌러주세요.</p>
-              <p>AI가 당신에게 꼭 맞는 진로 경험을 추천해 드립니다.</p>
+              <p>AI가 당신에게 꼭 맞는 진로경험을 추천해 드립니다.</p>
           </div>
       );
     }
