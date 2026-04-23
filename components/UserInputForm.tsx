@@ -22,6 +22,8 @@ const UserInputForm: React.FC<UserInputFormProps> = ({ onSubmit, isLoading }) =>
     ageGroup: '대학교 1학년',
   });
 
+  const [showEdiscInfo, setShowEdiscInfo] = useState(false);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -35,15 +37,51 @@ const UserInputForm: React.FC<UserInputFormProps> = ({ onSubmit, isLoading }) =>
   const inputStyle = "w-full bg-white border border-emerald-100 rounded-lg p-3 text-slate-700 placeholder-slate-400 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition duration-200";
   const labelStyle = "block text-sm font-medium text-slate-700 mb-2";
 
+  const ediscDescriptions = [
+    { type: 'D유형(주도형)', desc: '외향적 / 일-과제 적극적, 목표중심적, 의사결정 및 업무처리 빠름' },
+    { type: 'I유형(사교형)', desc: '외향적 / 사람에게 적극적, 에너지 넘침, 정열적이며 표현력 풍부' },
+    { type: 'S유형(안정형)', desc: '내향적 / 사람에게 신중함, 이타적, 인내심 있음, 겸손하고 지원적' },
+    { type: 'C유형(신중형)', desc: '내향적 / 일-과제에 신중함, 완벽주의, 정확하고 사실/분석 중심적' },
+  ];
+
   return (
     <div className="max-w-4xl mx-auto bg-white/50 backdrop-blur-sm rounded-2xl shadow-lg p-6 md:p-8 border border-emerald-100">
       <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="relative">
+          <div className="flex items-center gap-2 mb-2">
+            <label htmlFor="edisc" className="text-sm font-medium text-slate-700">아이프잡 유형(eDISC성향)</label>
+            <button 
+              type="button"
+              className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold hover:bg-emerald-200 transition-colors"
+              onMouseEnter={() => setShowEdiscInfo(true)}
+              onMouseLeave={() => setShowEdiscInfo(false)}
+              onClick={() => setShowEdiscInfo(!showEdiscInfo)}
+            >
+              ?
+            </button>
+          </div>
+          <select id="edisc" name="edisc" value={formData.edisc} onChange={handleChange} className={inputStyle}>
+            {EDISC_TYPES.map(type => <option key={type} value={type}>{type}형</option>)}
+          </select>
+
+          {showEdiscInfo && (
+            <div className="absolute z-10 left-0 mt-2 w-full md:w-auto min-w-[300px] bg-white border border-emerald-100 rounded-xl shadow-xl p-4 animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="space-y-3">
+                {ediscDescriptions.map((item, idx) => (
+                  <div key={idx} className="text-xs">
+                    <span className="font-bold text-emerald-700 block mb-1">{item.type}</span>
+                    <p className="text-slate-600 leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="edisc" className={labelStyle}>아이프잡 유형(eDISC성향)</label>
-            <select id="edisc" name="edisc" value={formData.edisc} onChange={handleChange} className={inputStyle}>
-              {EDISC_TYPES.map(type => <option key={type} value={type}>{type}</option>)}
-            </select>
+            <label htmlFor="major" className={labelStyle}>전공 / 부전공</label>
+            <input type="text" id="major" name="major" value={formData.major} onChange={handleChange} className={inputStyle} placeholder="예: 컴퓨터공학, 심리학" />
           </div>
           <div>
             <label htmlFor="ageGroup" className={labelStyle}>소속 / 학년</label>
@@ -51,11 +89,6 @@ const UserInputForm: React.FC<UserInputFormProps> = ({ onSubmit, isLoading }) =>
               {AGE_GROUPS.map(group => <option key={group} value={group}>{group}</option>)}
             </select>
           </div>
-        </div>
-        
-        <div>
-          <label htmlFor="major" className={labelStyle}>전공 / 부전공</label>
-          <input type="text" id="major" name="major" value={formData.major} onChange={handleChange} className={inputStyle} placeholder="예: 컴퓨터공학, 심리학" />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
