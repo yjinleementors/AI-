@@ -11,7 +11,7 @@ const SectionTitle: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     </h3>
 );
   
-const ExperienceSection: React.FC<{ title: string; description: string; experiences: Experience[] }> = ({ title, description, experiences }) => {
+const ExperienceSection: React.FC<{ title: string; description: string; experiences: Experience[]; forceShowTips?: boolean }> = ({ title, description, experiences, forceShowTips }) => {
     if (!experiences || experiences.length === 0) return null;
     return (
       <div className="mb-10">
@@ -21,7 +21,7 @@ const ExperienceSection: React.FC<{ title: string; description: string; experien
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {experiences.map((exp, index) => (
-            <ExperienceCard key={index} experience={exp} />
+            <ExperienceCard key={index} experience={exp} forceShowTips={forceShowTips} />
           ))}
         </div>
       </div>
@@ -40,16 +40,22 @@ const ResultsDisplay: React.FC<{
       if (!resultsRef.current) return;
       
       setIsDownloading(true);
-      try {
-        const element = resultsRef.current;
-        const canvas = await html2canvas(element, {
-          scale: 2,
-          useCORS: true,
-          logging: false,
-          backgroundColor: '#ffffff',
-          windowWidth: element.scrollWidth,
-          windowHeight: element.scrollHeight
-        });
+      
+      // Wait for re-render so Tip sections are visible
+      setTimeout(async () => {
+        try {
+          const element = resultsRef.current;
+          if (!element) return;
+
+          const canvas = await html2canvas(element, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            windowWidth: element.scrollWidth,
+            windowHeight: element.scrollHeight,
+            ignoreElements: (el) => el.classList.contains('pdf-hide')
+          });
         
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF({
@@ -66,6 +72,7 @@ const ResultsDisplay: React.FC<{
       } finally {
         setIsDownloading(false);
       }
+    }, 100);
     };
 
     if (isLoading) {
@@ -96,21 +103,24 @@ const ResultsDisplay: React.FC<{
                 title="🌿 1. 맞춤형 경험" 
                 description="나의 아이프잡 유형(eDISC성향)과 배경에 딱 맞는 경험 추천!"
                 experiences={recommendations.customizedExperience} 
+                forceShowTips={isDownloading}
               />
               <ExperienceSection 
                 title="✨ 2. 보완형 경험" 
                 description="나에게 부족한 점을 보완해줄 수 있는 경험 추천!"
                 experiences={recommendations.complementaryExperience} 
+                forceShowTips={isDownloading}
               />
               <ExperienceSection 
                 title="🚀 3. 확장형 경험" 
                 description="나를 확장할 수 있는 새로운 경험 추천!"
                 experiences={recommendations.expansionExperience} 
+                forceShowTips={isDownloading}
               />
               
-              <hr className="my-8 border-emerald-100" />
+              <hr className="my-8 border-emerald-100 pdf-hide" />
               
-              <div className="mt-8 text-center p-4 bg-emerald-50/50 rounded-xl border border-emerald-100">
+              <div className="mt-8 text-center p-4 bg-emerald-50/50 rounded-xl border border-emerald-100 pdf-hide">
                 <p className="text-lg font-bold text-emerald-800">
                   🎁 [경험 기록을 위한 선물] <a href="https://plucky-wavelength-e80.notion.site/33c7253a228280f1b0cec1f5a3c3817c?pvs=14" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-700 underline decoration-2 underline-offset-4 transition-colors">경험기록 노션 템플릿 다운받기 (Click!)</a>
                 </p>

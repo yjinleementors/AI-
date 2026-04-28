@@ -5,6 +5,7 @@ import { TagIcon, BuildingIcon, CalendarIcon, AcademicCapIcon, ArrowRightIcon, L
 
 interface ExperienceCardProps {
   experience: Experience;
+  forceShowTips?: boolean;
 }
 
 const InfoLine: React.FC<{ icon: string; label: string; value: string; }> = ({ icon, label, value }) => (
@@ -16,9 +17,11 @@ const InfoLine: React.FC<{ icon: string; label: string; value: string; }> = ({ i
   </div>
 );
 
-export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) => {
+export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience, forceShowTips = false }) => {
   const [isTipVisible, setIsTipVisible] = useState(false);
   const [linkStatus, setLinkStatus] = useState<'checking' | 'valid' | 'broken'>('checking');
+
+  const showTip = isTipVisible || forceShowTips;
 
   useEffect(() => {
     let isMounted = true;
@@ -81,8 +84,8 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) =>
           <InfoLine icon="✅" label="역량" value={experience.competency} />
         </div>
         
-        {isTipVisible && experience.portfolioTip && (
-          <div className="mt-4 p-4 bg-emerald-50/50 rounded-lg border border-emerald-100 space-y-3">
+        {showTip && experience.portfolioTip && (
+          <div className={`mt-4 p-4 rounded-lg border space-y-3 ${forceShowTips ? 'bg-gray-50 border-gray-200' : 'bg-emerald-50/50 border-emerald-100'}`}>
              <div>
               <p className="text-xs font-semibold text-emerald-600">배운 점</p>
               <p className="text-sm text-slate-600">{experience.portfolioTip.learned}</p>
@@ -98,7 +101,7 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({ experience }) =>
         )}
       </div>
 
-      <div className="mt-4 pt-4 border-t border-emerald-50 flex flex-col sm:flex-row gap-2">
+      <div className="mt-4 pt-4 border-t border-emerald-50 flex flex-col sm:flex-row gap-2 pdf-hide">
         {experience.portfolioTip && (
           <button
             onClick={() => setIsTipVisible(!isTipVisible)}
